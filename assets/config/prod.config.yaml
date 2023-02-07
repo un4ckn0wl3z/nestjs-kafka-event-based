@@ -1,0 +1,27 @@
+app:
+  name: 'User domain API'
+  description: '[Domain] user'
+  version: '1.0'
+
+log:
+  level: 'silly'
+
+nanoid:
+  alphanum: '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
+  len: 11
+
+api-services:
+  photos:
+    list-photo:
+      url: https://self-signed.badssl.com/
+      method: "GET"
+      timeout: 5000
+      reject-unauthorized: false
+
+kafka:
+  client:
+    client-id: 'user-consumer'
+    brokers:
+      - '134.209.108.174:9092'
+  consumer:
+    group-id: 'user-consumer-grp'
