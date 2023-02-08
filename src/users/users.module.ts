@@ -4,6 +4,7 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
 import { PrismaModule } from 'prisma/prisma.module';
 import { EventConsumerController } from './consumer/event.consumer.controller';
 import { EventProducerService } from './producer/event.producer.service';
+import { PhotosApiService } from './service/photo-api.service';
 import { UsersService } from './service/users.service';
 
 
@@ -32,6 +33,6 @@ import { UsersService } from './service/users.service';
       ),
     ],
     controllers: [EventConsumerController],
-    providers: [EventProducerService,UsersService]
+    providers: [EventProducerService,UsersService,PhotosApiService]
 })
 export class UsersModule {}

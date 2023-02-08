@@ -25,3 +25,10 @@ kafka:
       - '134.209.108.174:9092'
   consumer:
     group-id: 'user-consumer-grp'
+
+api-services:
+  photos:
+    list-photo:
+      url: https://jsonplaceholder.typicode.com/photos/1
+      method: "GET"
+      timeout: 5000
