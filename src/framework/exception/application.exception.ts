@@ -1,20 +1,34 @@
-import { CustomError } from 'ts-custom-error'
- 
-export class UnExpectedError extends CustomError {
+export class DataDuplicatedError extends Error {
+    public code: number;
     public constructor(
-        public code: number,
         message?: string,
     ) {
-        super(message)
+        super(message = 'Data duplicated')
+        this.name = this.constructor.name
+        this.code = 40001
     }
 }
 
 
-export class UnExpectedHttpError extends CustomError {
+export class UnExpectedError extends Error {
+    public code: number;
     public constructor(
-        public code: number,
         message?: string,
     ) {
-        super(message)
+        super(message = 'Unexpected Error')
+        this.name = this.constructor.name
+        this.code = 50001
+    }
+}
+
+
+export class UnExpectedHttpError extends Error {
+    public code: number;
+    public constructor(
+        message?: string,
+    ) {
+        super(message = 'Unexpected HTTP Error')
+        this.name = this.constructor.name
+        this.code = 50002
     }
 }

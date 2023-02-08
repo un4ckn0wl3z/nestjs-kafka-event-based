@@ -4,6 +4,7 @@ import { GLOBAL_REQUEST_HELPER_INSTANCE } from "src/main"
 import { CustomLoggerService } from "../logger/logger.service"
 import { CustomSummaryLoggerService } from "../logger/summary.logger.service"
 import { UtilService } from "./util.service"
+import * as _ from "lodash";
 
 
 @Injectable()
@@ -32,9 +33,9 @@ export class FlushSummaryLog {
         this.summaryLoggerService.update('requestTimestamp', `${ this.utilService.setTimestampFormat(new Date(GLOBAL_REQUEST_HELPER_INSTANCE.getNow())) }`)
         this.summaryLoggerService.update('responseTimestamp', `${ this.utilService.setTimestampFormat(new Date()) }`)
         this.summaryLoggerService.update('processTime', `${Date.now() - GLOBAL_REQUEST_HELPER_INSTANCE.getNow()}ms`)
-        this.summaryLoggerService.update('transactionResult', "50000")
-        this.summaryLoggerService.update('transactionDesc', `[${this.configService.get<string>('app.name').toUpperCase()}] - Error`)
-        this.summaryLoggerService.flushError(stack)
+        this.summaryLoggerService.update('transactionResult', stack['code']+'')
+        this.summaryLoggerService.update('transactionDesc', `[${this.configService.get<string>('app.name').toUpperCase()}] - ${_.startCase(stack['name'])}`)
+        this.summaryLoggerService.flushError(stack['stack'])
     }
 
 }

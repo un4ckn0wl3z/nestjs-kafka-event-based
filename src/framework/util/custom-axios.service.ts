@@ -41,7 +41,7 @@ export class CustomAxiosService {
             case "ECONNREFUSED":
             case "ECONNABORTED":
                 this.logger.error(`[HTTP Response Operation] ${cmd} -> ${this.configService.get<string>('app.name')}`, err.message, err)
-                throw new UnExpectedHttpError(50000, err.message)
+                throw new UnExpectedHttpError()
             default:
                 return
         }

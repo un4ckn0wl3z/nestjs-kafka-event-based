@@ -1,17 +1,17 @@
 import { Injectable } from "@nestjs/common";
 import { PrismaService } from "prisma/prisma.service";
+import { DataDuplicatedError } from "src/framework/exception/application.exception";
 import { CustomLoggerService } from "src/framework/logger/logger.service";
-import { FlushSummaryLog } from "src/framework/util/flush-summary.logger.service";
 import { UserRegistedEvent } from "../dtos/consumer/user-registed.event";
 import { UserEmailNotificationEvent } from "../dtos/producer/user-email-notification.event";
 import { EventProducerService } from "../producer/event.producer.service";
+
 @Injectable()
 export class UsersService {
     constructor(
         private prisma: PrismaService,
         private eventProducerService: EventProducerService,
         private logger: CustomLoggerService,
-        private summaryLog: FlushSummaryLog
         ){}
     async createUser(dto: UserRegistedEvent){
       this.logger.info('[+] createUser entered', dto)
@@ -19,7 +19,9 @@ export class UsersService {
             email: dto.email
           }})
           if(foundUser){
-            return;
+            this.logger.error('[-] Data duplicated', foundUser)            
+            throw new DataDuplicatedError()
+            //return;
           }
           try {
             await this.prisma.user.create({ data: {
@@ -39,7 +41,7 @@ export class UsersService {
           }
           this.logger.info('[+] UserEmailNotificationEventevent producing', event)            
           this.eventProducerService.userEmailNotificationPublisher(event)
-          this.summaryLog.flush()
+
         }
   
       updateUser(){
