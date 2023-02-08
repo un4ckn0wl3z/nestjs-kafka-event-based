@@ -32,4 +32,9 @@ export class UtilService {
         return moment(date).utcOffset('+0700').format('YYYY-MM-DD HH:mm:ss.SSS')
     }
 
+    responseServiceApi(response){
+        const {status, headers, data} = response
+        return {status, headers, data}
+    }
+
 }

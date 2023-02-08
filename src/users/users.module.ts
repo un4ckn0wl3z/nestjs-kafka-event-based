@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { PrismaModule } from 'prisma/prisma.module';
 import { EventConsumerController } from './consumer/event.consumer.controller';
@@ -9,21 +10,26 @@ import { UsersService } from './service/users.service';
 @Module({
     imports: [
       PrismaModule,
-        ClientsModule.register([
-            {
-              name: 'USER_PRODUCER',
+      ClientsModule.registerAsync(
+        [
+          {
+            name: 'USER_PRODUCER',
+            inject: [ConfigService],
+            useFactory: (config: ConfigService) => ({
               transport: Transport.KAFKA,
               options: {
                 client: {
                   clientId: 'user-producer',
-                  brokers: ['134.209.108.174:9092'],
+                  brokers: config.get<Array<string>>('kafka.client.brokers'),
                 },
                 producer: {
-                    allowAutoTopicCreation: true
+                  allowAutoTopicCreation: true
                 }
-              }
-            },
-          ]),
+              },
+            }),
+          },
+        ]
+      ),
     ],
     controllers: [EventConsumerController],
     providers: [EventProducerService,UsersService]

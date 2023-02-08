@@ -56,7 +56,7 @@ if(process.env.ZONE !== "prod") {
   ],
   controllers: [],
   providers: [FlushSummaryLog, CustomLoggerService, CustomSummaryLoggerService, UtilService, RequestHelperService],
-  exports: [CustomLoggerService,UtilService, FlushSummaryLog]
+  exports: [CustomLoggerService, UtilService, FlushSummaryLog]
   })
 export class AppModule {}
 

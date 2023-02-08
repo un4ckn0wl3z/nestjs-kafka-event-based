@@ -42,6 +42,7 @@
     "prom-client": "^14.1.1",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.2.0",
+    "ts-custom-error": "^3.3.1",
     "ts-transformer-keys": "^0.4.4",
     "urlencode": "^1.1.0",
     "winston": "^3.8.2",
