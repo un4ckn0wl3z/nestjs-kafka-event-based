@@ -10,14 +10,6 @@ nanoid:
   alphanum: '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
   len: 11
 
-api-services:
-  photos:
-    list-photo:
-      url: https://self-signed.badssl.com/
-      method: "GET"
-      timeout: 5000
-      reject-unauthorized: false
-
 kafka:
   client:
     client-id: 'user-consumer'
@@ -32,3 +24,4 @@ api-services:
       url: https://jsonplaceholder.typicode.com/photos/1
       method: "GET"
       timeout: 5000
+      reject-unauthorized: false
