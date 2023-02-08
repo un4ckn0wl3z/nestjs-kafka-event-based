@@ -12,6 +12,9 @@ const logger = new Logger('AppModule')
 import * as winstonDailyRotateFile from 'winston-daily-rotate-file';
 import { RequestHelperService } from './framework/helper/request.service';
 import { FlushSummaryLog } from './framework/util/flush-summary.logger.service';
+import { HttpModule } from '@nestjs/axios';
+import { CustomAxiosService } from './framework/util/custom-axios.service';
+
 
 const applicationVersionFile = './APPLICATION_VERSION.txt'
 
@@ -36,7 +39,7 @@ if(process.env.ZONE !== "prod") {
 
 @Global()
 @Module({
-  imports: [UsersModule,
+  imports: [HttpModule.register({}),UsersModule,
     ConfigModule.forRoot({
       load: [configuration],
       isGlobal: true,
@@ -55,8 +58,8 @@ if(process.env.ZONE !== "prod") {
   
   ],
   controllers: [],
-  providers: [FlushSummaryLog, CustomLoggerService, CustomSummaryLoggerService, UtilService, RequestHelperService],
-  exports: [CustomLoggerService, UtilService, FlushSummaryLog]
+  providers: [CustomAxiosService,FlushSummaryLog, CustomLoggerService, CustomSummaryLoggerService, UtilService, RequestHelperService],
+  exports: [CustomAxiosService,CustomLoggerService, UtilService, FlushSummaryLog]
   })
 export class AppModule {}
 
