@@ -15,7 +15,6 @@ import { FlushSummaryLog } from './framework/util/flush-summary.logger.service';
 import { HttpModule } from '@nestjs/axios';
 import { CustomAxiosService } from './framework/util/custom-axios.service';
 
-
 const applicationVersionFile = './APPLICATION_VERSION.txt'
 
 fs.readFile(applicationVersionFile, function (err, data) {
